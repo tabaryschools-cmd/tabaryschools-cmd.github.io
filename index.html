@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>الطبري — الكنترول</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0e2747">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الطبري">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon.png">
+<style>
+html,body{margin:0;height:100%;background:#0a1b33;overflow:hidden;font-family:system-ui,Tahoma,sans-serif}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff;padding-top:env(safe-area-inset-top);box-sizing:border-box;background-color:#0a1b33}
+#ld{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;background:#0a1b33;z-index:2;transition:opacity .4s}
+#ld img{width:96px;height:96px;border-radius:50%;background:#fff;padding:6px}
+#ld a{color:#d4af37}
+#ld.off{opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="ld"><img src="icons/icon-192.png" alt=""><div id="lm">جارِ فتح البرنامج…</div></div>
+<iframe id="fr" title="Tabary" allow="fullscreen; clipboard-write" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<script src="config.js"></script>
+<script>
+(function () {
+  var u = window.APP_URL || '', fr = document.getElementById('fr'), ld = document.getElementById('ld'), lm = document.getElementById('lm');
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () { });
+  if (!/^https:\/\/script\.google\.com\/.+/.test(u)) { lm.textContent = 'لم يتم ضبط رابط البرنامج في ملف config.js'; return; }
+  fr.onload = function () { ld.classList.add('off'); };
+  fr.src = u;
+  setTimeout(function () { if (!ld.classList.contains('off')) lm.innerHTML = 'التحميل بطيء… تأكد من الإنترنت أو <a href="' + u + '">افتح البرنامج مباشرة</a>'; }, 12000);
+})();
+</script>
+</body>
+</html>
